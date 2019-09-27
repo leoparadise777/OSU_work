@@ -1,0 +1,65 @@
+0.What's the best-case, worst-case, and average-case time complexities of quicksort. Briefly explain each case.
+
+best-case:O(nlogn) worse-case:O(n^2) average-case:O(nlogn)
+
+best & average case: h:longn, w:n => O(nlogn)
+
+   [XXXXXXXXXXXXXXX]    -
+   [XXXXXX]x[XXXXXX}    |
+  [XX]x[XX]x[XX]x[XX]
+           .            logn
+           .
+           .            |
+           .            -
+   |-      n       -|
+
+
+worse case: h:n, w:n => O(n^2)
+
+  [XXXXXXXXXXXXXXX]    -
+  x[XXXXXXXXXXXXXX]    |
+  xx[XXXXXXXXXXXXX]
+  xxx[XXXXXXXXXXXX]    n
+          .
+          .            |
+          .            -
+  |-      n       -|
+
+
+1.What's the best-case, worst-case, and average-case time complexities? Briefly explain.
+
+best-case:O(n) worse-case:O(n^2) average-case:O(n)
+
+best & average case: n+(n/2)+(n/4)+(n/8).....=n(1+1/2+1/4+1/8.....)=2n => O(n)
+
+   [XXXXXXXXXXXXXXX]  n
+   [XXXXXXX]x         n/2
+   [XXX]x             n/4
+               .      .
+               .      .
+               .      .
+               .      .
+ 
+
+
+
+worse case: h:n, w:n => O(n^2)
+
+  [XXXXXXXXXXXXXXX]    -
+  x[XXXXXXXXXXXXXX]    |
+  xx[XXXXXXXXXXXXX]
+  xxx[XXXXXXXXXXXX]    n
+          .
+          .            |
+          .            -
+  |-      n       -|
+
+
+
+
+Debriefing:
+1.
+2.moderate to difficult
+3.50/50
+4.about 90%.
+5.working on SSH thing & Python (haven't use it before)
