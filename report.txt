@@ -55,10 +55,12 @@ worse case: h:n, w:n => O(n^2)
   |-      n       -|
 
 
+2.What are the time complexities for the operations implemented?
+O(logn)
 
 
 Debriefing:
-1.
+1.about 2 days
 2.moderate to difficult
 3.50/50
 4.about 90%.
