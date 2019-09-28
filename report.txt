@@ -4,26 +4,26 @@ best-case:O(nlogn) worse-case:O(n^2) average-case:O(nlogn)
 
 best & average case: h:longn, w:n => O(nlogn)
 
-   [XXXXXXXXXXXXXXX]    -
-   [XXXXXX]x[XXXXXX}    |
-  [XX]x[XX]x[XX]x[XX]
-           .            logn
-           .
-           .            |
-           .            -
-   |-      n       -|
+   [XXXXXXXXXXXXXXX]   O(n)  -
+   [XXXXXX]x[XXXXXX}   O(n)  | 
+  [XX]x[XX]x[XX]x[XX]  O(n)
+           .           O(n)  O(logn)
+           .            .
+           .            .    |
+           .            .    -
 
 
 worse case: h:n, w:n => O(n^2)
 
-  [XXXXXXXXXXXXXXX]    -
-  x[XXXXXXXXXXXXXX]    |
-  xx[XXXXXXXXXXXXX]
-  xxx[XXXXXXXXXXXX]    n
-          .
-          .            |
-          .            -
-  |-      n       -|
+  [XXXXXXXXXXXXXXX]   n 
+  x[XXXXXXXXXXXXXX]   n-1 
+   x[XXXXXXXXXXXXX]   n-2
+    x[XXXXXXXXXXXX]   n-3 
+          .            .
+          .            .
+          .            .
+  
+n+(n-1)+(n-2)....=n(n+1)/2=O(n^2)
 
 
 1.What's the best-case, worst-case, and average-case time complexities? Briefly explain.
@@ -32,27 +32,26 @@ best-case:O(n) worse-case:O(n^2) average-case:O(n)
 
 best & average case: n+(n/2)+(n/4)+(n/8).....=n(1+1/2+1/4+1/8.....)=2n => O(n)
 
-   [XXXXXXXXXXXXXXX]  n
-   [XXXXXXX]x         n/2
+   [XXXXXXXXXXXXXXX]  n   
+   [XXXXXXX]x         n/2 
    [XXX]x             n/4
                .      .
-               .      .
+               .      .   
                .      .
                .      .
  
 
-
-
 worse case: h:n, w:n => O(n^2)
 
-  [XXXXXXXXXXXXXXX]    -
-  x[XXXXXXXXXXXXXX]    |
-  xx[XXXXXXXXXXXXX]
-  xxx[XXXXXXXXXXXX]    n
-          .
-          .            |
-          .            -
-  |-      n       -|
+  [XXXXXXXXXXXXXXX]   n 
+  x[XXXXXXXXXXXXXX]   n-1 
+   x[XXXXXXXXXXXXX]   n-2
+    x[XXXXXXXXXXXX]   n-3 
+          .            .
+          .            .
+          .            .
+  
+n+(n-1)+(n-2)....=n(n+1)/2=O(n^2)
 
 
 2.What are the time complexities for the operations implemented?
