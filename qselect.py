@@ -13,6 +13,6 @@ def sort(k,a):
         elif k > len(left) + 1:
             k = k-1
             return sort(k,left)
-        else
+        else:
             k = k-1
             return sort(k,right)
