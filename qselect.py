@@ -1,3 +1,5 @@
+import random
+
 def sort(k,a):
     # the base condition
     if a == []:
