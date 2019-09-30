@@ -1,17 +1,19 @@
-import random
+from random import randint
 
-def select(k,a):
-    # the base condition
-    if a == []:
-        return []
-    # sort part
-    else:
-        pivot = random.sample(a,1)
+def select(i, a):
+    if len(a) > 0:
+        #i = randint(0, len(a)-1)
+        a[0], a[i] = a[i], a[0]
+        pivot = a[0]
         left = [x for x in a if x < pivot]
         right = [x for x in a[1:] if x >= pivot]
-        if k == len(left) + 1:
+        a = left + [pivot] + right
+        if i == len(left) + 1:
             return pivot
-        elif k > len(left) + 1:
-            return select(k-1,left)
+        elif i > len(left) + 1:
+            return select(i-1, right)
         else:
-            return select(k-1,right)
+            return select(i-1, left)
+    #return a
+
+#print(select(4 ,[3,7,6,9,1,8,10,4]))
