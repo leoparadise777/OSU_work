@@ -11,9 +11,9 @@ def qselect(i, a):
         if i == len(left) + 1:
             return pivot
         elif i > len(left) + 1:
-            return select(i-1, right)
+            return qselect(i-1, right)
         else:
-            return select(i-1, left)
+            return qselect(i-1, left)
     #return a
 
-print(select(4 ,[3,7,6,9,1,8,10,4]))
+#print(qselect(4 ,[3,7,6,9,1,8,10,4]))
