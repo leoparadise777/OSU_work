@@ -1,8 +1,8 @@
 from random import randint
 
-def select(i, a):
+def qselect(i, a):
     if len(a) > 0:
-        #i = randint(0, len(a)-1)
+        # i = randint(0, len(a)-1)
         a[0], a[i] = a[i], a[0]
         pivot = a[0]
         left = [x for x in a if x < pivot]
@@ -16,4 +16,4 @@ def select(i, a):
             return select(i-1, left)
     #return a
 
-#print(select(4 ,[3,7,6,9,1,8,10,4]))
+print(select(4 ,[3,7,6,9,1,8,10,4]))
