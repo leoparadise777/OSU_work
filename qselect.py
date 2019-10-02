@@ -3,7 +3,7 @@ import random
 def qselect(k,a):
     if len(a) >0:
         i=random.randint(0, len(a)-1)
-        a[0],a[i]=a[i],a[o]
+        a[0],a[i]=a[i],a[0]
         pivot=a[0]
         left = [x for x in a if x < pivot]
         right = [x for x in a[1:] if x >= pivot]
