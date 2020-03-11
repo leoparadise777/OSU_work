@@ -1,38 +1,36 @@
 #TSP
+#Project Group 6
 
 import sys
 import math
 import time
 
-#city class for creating initial array to store city data
+
+# creating initial array to store city data
 class City:
     def __init__(self, number, xCoord, yCoord):
         self.cityName = number
         self.x = xCoord
         self.y = yCoord
 
-#tourPayload class for holding two items, the tourArray of optimal length and the distance of tour
-class tourPayload:
-    def __init__(self, tourArray, distance):
-        self.tourArray = tourArray
-        self.distance = distance
 
-#read data from provided file and store city info as arguements in city array.
+# read data from file and store information as arguments in city array.
 def readFile(fileName):
     file = fileName + '.txt'
     with open(file) as data:
         cityArray = []
         for line in data:
-            line = line.split() # to deal with blank
-            if line:            # lines (take the line and grab individual elements in value)
+            line = line.split()  # blank
+            if line:             # lines
                 cityInfo = []
                 for value in line:
                     cityInfo.append(value)
-                city = City(int(cityInfo[0]), int(cityInfo[1]), int(cityInfo[2])) #create a new object
-                cityArray.append(city)  #append the object to the city array
+                city = City(int(cityInfo[0]), int(cityInfo[1]), int(cityInfo[2]))  # new object
+                cityArray.append(city)  # append the object to city array
     return cityArray
 
-#write file
+
+# write file
 def writeFile(fileName, array):
     file = fileName + '.txt' + '.tour'
     with open(file, 'w') as outPutFile:
@@ -40,17 +38,18 @@ def writeFile(fileName, array):
             num = str(val)
             outPutFile.write(num + "\n")
 
-#compute distance between two cities
+
+# distance between two cities
 def distance(x1,y1,x2,y2):
     dx = x2 - x1
     dy = y2 - y1
     return int(round(math.sqrt(dx*dx + dy*dy)))
 
-#generates candidate paths using neighest neighbor algorithm
-def nearestNeighbor(cityArray, startCity, bestDistance):
+
+# candidate paths by nighest neighbor algorithm
+def nearestNeighbor(cityArray, startCity):
     tourArray = [startCity]
     x = 0
-    tourLength = float(0) #initialize this tour length to zero
     while x != len(cityArray)-1:
         i = tourArray[-1]
         lastDistance = float('inf')
@@ -61,16 +60,16 @@ def nearestNeighbor(cityArray, startCity, bestDistance):
                     lastDistance = d
                     currentCity = j.cityName
         tourArray.append(currentCity)
-        tourLength = tourLength + d   #update the tourLength with the distance of the new addition
-        if tourLength > bestDistance: #if the tour being constructed is greater than our bestDistance then...
-            return 0                  #short circuit and return 0
         x += 1
-        payload = tourPayload(tourArray, tourLength) #create a new payload object to pass back to main
-    return payload #return the payload, this is more optimal than last function call
+    return tourArray
 
-#optimizes best path from nearestNeighbor using 2-OPT algorithm
-def Two_OPT(cityArray, tour):
+
+# 2-OPT algorithm
+def Two_OPT(cityArray, tour,i):
+    g=i
+    iter = 0
     while True:
+        iter+=1
         minchange = 0
         swap = False
         for i in range(len(tour)-2):
@@ -88,19 +87,26 @@ def Two_OPT(cityArray, tour):
             temp = tour[minI+1]
             tour[minI+1] = tour[minJ]
             tour[minJ] = temp
-        if minchange >= 0:  #if no changes made, break out of loop
-            break
+        if g == 249:
+            if minchange >= 0:  # if no changes
+                break
+        else:
+            if i > iter:
+                break
     return tour
 
-#compute tour distance
+
+# tour distance
 def tourDistance(cityArray, tour):
         dist = 0
-        for i in range(len(cityArray)-1):  #the -1 remedies out or range errors, no allowing you to calculate a distance from the last city
+        for i in range(len(cityArray)-1):
             dist = dist + distance(cityArray[tour[i]].x,cityArray[tour[i]].y,cityArray[tour[i+1]].x, cityArray[tour[i+1]].y)
-        lfCity = distance(cityArray[tour[0]].x, cityArray[tour[0]].y, cityArray[tour[-1]].x, cityArray[tour[-1]].y)  #add in distance from first to last.
+        lfCity = distance(cityArray[tour[0]].x, cityArray[tour[0]].y, cityArray[tour[-1]].x, cityArray[tour[-1]].y)
         dist += lfCity
         return dist
 
+
+# main
 def main():
     fileName = sys.argv[1]
     cityArray = readFile(fileName)
@@ -108,27 +114,37 @@ def main():
     n = len(cityArray)
     if n <= 100:
         iterations = len(cityArray)
-    elif 100 < n and n <= 500:
+        i=250
+    elif 100 < n and n <= 400:
         iterations = len(cityArray)*(3/4)
+        i=249
+    elif 400 < n and n <= 500:
+        iterations = 20  # len(cityArray)*(1/4)
+        i=30
     elif 500 < n and n <= 1000:
-        iterations = len(cityArray)*(1/2)
+        iterations = 15
+        i=15
     elif 1000 < n and n <= 2000:
-        iterations = len(cityArray)*(1/4)
+        iterations = 2
+        i=2
     else:
         iterations = 1
-    start = time.time()
-    for p in range(int(iterations)):          #create tours for all possible start points
-        initTour = nearestNeighbor(cityArray, p, finalDistance) #pass the current best distance (aka finalDistance) into nearestNeighbor function
-        if initTour != 0: 			          #if initTour is not zero, then we have a tour that is the new best tour
-           finalTour = initTour.tourArray     #set our finalTour to initTour's tourArray
-           finalDistance = initTour.distance  #set our finalDistance to initTour's distance to be passed into nearestNeighbor next iteration
-    optTour = Two_OPT(cityArray, finalTour)
+        i=1
+    start = time.perf_counter()
+    for p in range(int(iterations)):
+        initTour = nearestNeighbor(cityArray, p)
+        sumDist = tourDistance(cityArray, initTour)
+        if sumDist <= finalDistance:
+            finalDistance = sumDist
+            finalTour = initTour
+    optTour = Two_OPT(cityArray, finalTour, i)
     optDist = tourDistance(cityArray, optTour)
-    end = time.time()
-    elapsed = end - start #amount of time to execute insertion sort
+    end = time.perf_counter()
+    elapsed = end - start  # amount of time
     optTour.insert(0,optDist)
     print(elapsed)
     writeFile(fileName,optTour)
 
 if __name__ == "__main__":
     main()
+
